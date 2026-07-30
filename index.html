@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -8,41 +9,63 @@
 
     <link rel="stylesheet" href="style.css">
 
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
+
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 </head>
 
+
 <body>
+
 
 <!-- Loading Screen -->
 <div id="loader">
     <div class="spinner"></div>
-</div>    
+</div>
+
 
 <header>
+
 
     <div class="logo">
         📁 FileShare Chat
     </div>
 
+
+
     <div class="search">
+
         🔍
+
         <input 
         type="text" 
         placeholder="Search files...">
+
     </div>
 
+
+
     <div class="theme">
+
         <button id="themeBtn">
             🌙
         </button>
+
     </div>
+
 
 </header>
 
 
 
+
+
 <main>
+
 
 
 <section class="upload">
@@ -51,57 +74,66 @@
 <h2>📤 Upload Files</h2>
 
 
+
 <div class="drop">
 
+
     ☁️
+
 
     <h3>
         Drag & Drop Files
     </h3>
+
 
     <p>
         or click to browse
     </p>
 
 
-   <input id="fileInput" type="file">
 
-<div id="fileInfo"></div>
+    <input id="fileInput" type="file">
 
-<div id="progressBox">
-    <div id="progressBar"></div>
+
+
+    <div id="fileInfo"></div>
+
+
+
+    <div id="progressBox">
+
+        <div id="progressBar"></div>
+
+    </div>
+
+
+
+    <p id="uploadMessage"></p>
+
+
+
 </div>
 
-<p id="uploadMessage"></p>
 
-
-</div>
 
 
 
 <select>
 
-<option>
-🖼 Images
-</option>
+<option>🖼 Images</option>
 
-<option>
-🎥 Videos
-</option>
+<option>🎥 Videos</option>
 
-<option>
-📄 Documents
-</option>
+<option>📄 Documents</option>
 
-<option>
-🎵 Music
-</option>
+<option>🎵 Music</option>
 
-<option>
-💻 Software
-</option>
+<option>💻 Software</option>
+
 
 </select>
+
+
 
 
 
@@ -111,9 +143,14 @@ placeholder="Write a caption...">
 
 
 
-<button class="uploadBtn">
+
+
+<button class="uploadBtn" id="uploadBtn">
+
 Upload
+
 </button>
+
 
 
 </section>
@@ -122,7 +159,12 @@ Upload
 
 
 
+
+
+
+
 <section class="feed">
+
 
 
 <h2>
@@ -131,14 +173,19 @@ Upload
 
 
 
+
+
+
 <div class="fileCard">
 
 
 <div class="user">
 
+
 <div class="avatar">
 A
 </div>
+
 
 
 <div>
@@ -151,10 +198,12 @@ Anonymous
 2 minutes ago
 </p>
 
+
 </div>
 
 
 </div>
+
 
 
 
@@ -168,39 +217,53 @@ Math notes for school
 </p>
 
 
+
+
 <div class="details">
+
 
 <span>
 📄 Document
 </span>
 
+
 <span>
 2.3 MB
 </span>
+
 
 </div>
 
 
 
+
 <div class="actions">
+
 
 <button>
 ⬇ Download
 </button>
 
+
 <button>
 ❤️ 15
 </button>
+
 
 <button>
 💬 2
 </button>
 
 
+
 </div>
 
 
 </div>
+
+
+
+
 
 
 
@@ -211,9 +274,11 @@ Math notes for school
 
 <div class="user">
 
+
 <div class="avatar">
 B
 </div>
+
 
 
 <div>
@@ -222,14 +287,18 @@ B
 Anonymous
 </h3>
 
+
 <p>
 10 minutes ago
 </p>
 
+
 </div>
 
 
 </div>
+
+
 
 
 
@@ -238,54 +307,75 @@ Anonymous
 </h2>
 
 
+
 <p>
 4K sunset wallpaper
 </p>
 
 
+
+
+
 <div class="details">
+
 
 <span>
 🖼 Image
 </span>
 
+
 <span>
 5.7 MB
 </span>
+
 
 </div>
 
 
 
+
+
 <div class="actions">
+
 
 <button>
 ⬇ Download
 </button>
 
+
+
 <button>
 ❤️ 42
 </button>
+
+
 
 <button>
 💬 8
 </button>
 
 
+
 </div>
 
 
 </div>
+
 
 
 
 </section>
 
 
+
 </main>
 
 
+
+
+
 <script src="script.js"></script>
+
 
 
 </body>

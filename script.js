@@ -22,7 +22,7 @@ themeBtn.onclick = () => {
 
 // 📁 File preview
 
-const fileInput = document.getElementById("fileInput");
+const fileInput = document.querySelector(".drop input");
 
 fileInput.addEventListener("change", () => {
 
@@ -131,53 +131,168 @@ downloadButtons.forEach(button => {
 
 });
 
-// 📤 Upload Demo
+// 📁 File upload preview demo
 
-const uploadBtn = document.querySelector(".uploadBtn");
-const feed = document.querySelector(".feed");
+const fileInput = document.getElementById("fileInput");
+const fileInfo = document.getElementById("fileInfo");
+const progressBar = document.getElementById("progressBar");
+const uploadMessage = document.getElementById("uploadMessage");
 
-uploadBtn.addEventListener("click", () => {
 
-    if (!fileInput.files.length) {
-        alert("Please select a file first.");
-        return;
-    }
+fileInput.addEventListener("change", () => {
 
     const file = fileInput.files[0];
 
-    const size = (file.size / 1024 / 1024).toFixed(2);
+
+    if(file){
+
+        let size = (file.size / 1024 / 1024).toFixed(2);
+
+
+        fileInfo.innerHTML = `
+        📄 <b>${file.name}</b><br>
+        📦 ${size} MB
+        `;
+
+    }
+
+});
+
+
+
+const uploadButton = document.querySelector(".uploadBtn");
+
+
+uploadButton.onclick = () => {
+
+
+    if(!fileInput.files[0]){
+
+        uploadMessage.innerHTML =
+        "❌ Select a file first";
+
+        return;
+
+    }
+
+
+    let progress = 0;
+
+
+    let timer = setInterval(()=>{
+
+
+        progress += 10;
+
+
+        progressBar.style.width =
+        progress + "%";
+
+
+        if(progress >= 100){
+
+
+            clearInterval(timer);
+
+
+            uploadMessage.innerHTML =
+            "✅ File uploaded successfully!";
+
+
+        }
+
+
+    },200);
+
+
+};
+
+const uploadBtn = document.getElementById("uploadBtn");
+const fileInput = document.getElementById("fileInput");
+const feed = document.querySelector(".feed");
+
+
+uploadBtn.onclick = () => {
+
+    const file = fileInput.files[0];
+
+    if(!file){
+        alert("Please select a file first!");
+        return;
+    }
+
 
     const card = document.createElement("div");
 
     card.className = "fileCard";
 
+
     card.innerHTML = `
-        <div class="user">
-            <div class="avatar">A</div>
 
-            <div>
-                <h3>Anonymous</h3>
-                <p>Just now</p>
-            </div>
+    <div class="user">
+
+        <div class="avatar">
+        U
         </div>
 
-        <h2>📄 ${file.name}</h2>
+        <div>
+            <h3>
+            You
+            </h3>
 
-        <p>Shared with everyone.</p>
-
-        <div class="details">
-            <span>📦 ${size} MB</span>
+            <p>
+            Just now
+            </p>
         </div>
 
-        <div class="actions">
-            <button>⬇ Download</button>
-            <button>❤️ 0</button>
-            <button>💬 0</button>
-        </div>
+    </div>
+
+
+    <h2>
+    📄 ${file.name}
+    </h2>
+
+
+    <p>
+    Uploaded file
+    </p>
+
+
+    <div class="details">
+
+        <span>
+        📁 File
+        </span>
+
+        <span>
+        ${(file.size / 1024).toFixed(1)} KB
+        </span>
+
+    </div>
+
+
+    <div class="actions">
+
+        <button>
+        ⬇ Download
+        </button>
+
+        <button>
+        ❤️ 0
+        </button>
+
+        <button>
+        💬 0
+        </button>
+
+    </div>
+
     `;
 
-    feed.prepend(card);
 
-    alert("✅ Upload demo complete!");
+    feed.appendChild(card);
 
-});
+
+    fileInput.value = "";
+
+};
