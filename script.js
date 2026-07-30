@@ -1,4 +1,4 @@
-// 🌙 Dark mode button
+// 🌙 Dark / Light Mode
 
 const themeBtn = document.getElementById("themeBtn");
 
@@ -20,123 +20,11 @@ themeBtn.onclick = () => {
 
 
 
-// 📁 File preview
 
-const fileInput = document.querySelector(".drop input");
-
-fileInput.addEventListener("change", () => {
-
-    if(fileInput.files.length > 0){
-
-        alert(
-            "Selected file: " + fileInput.files[0].name
-        );
-
-    }
-
-});
-
-
-
-// 🔍 Search
-
-const searchInput = document.querySelector(".search input");
-
-const cards = document.querySelectorAll(".fileCard");
-
-
-searchInput.addEventListener("input", () => {
-
-    let text = searchInput.value.toLowerCase();
-
-
-    cards.forEach(card => {
-
-
-        let content = card.innerText.toLowerCase();
-
-
-        if(content.includes(text)){
-
-            card.style.display = "block";
-
-        }
-
-        else{
-
-            card.style.display = "none";
-
-        }
-
-
-    });
-
-
-});
-
-
-
-// ❤️ Like buttons
-
-const likeButtons = document.querySelectorAll(".actions button:nth-child(2)");
-
-
-likeButtons.forEach(button => {
-
-
-    button.onclick = () => {
-
-
-        let number = parseInt(
-            button.innerText.replace("❤️","")
-        );
-
-
-        number++;
-
-
-        button.innerText = "❤️ " + number;
-
-
-    };
-
-
-});
-
-
-
-// ⬇ Download counter
-
-const downloadButtons = document.querySelectorAll(".actions button:first-child");
-
-
-downloadButtons.forEach(button => {
-
-
-    button.onclick = () => {
-
-
-        button.innerText = "⬇ Downloaded";
-
-
-        setTimeout(()=>{
-
-            button.innerText = "⬇ Download";
-
-        },2000);
-
-
-    };
-
-
-});
-
-// 📁 File upload preview demo
+// 📁 File Preview
 
 const fileInput = document.getElementById("fileInput");
 const fileInfo = document.getElementById("fileInfo");
-const progressBar = document.getElementById("progressBar");
-const uploadMessage = document.getElementById("uploadMessage");
 
 
 fileInput.addEventListener("change", () => {
@@ -146,12 +34,9 @@ fileInput.addEventListener("change", () => {
 
     if(file){
 
-        let size = (file.size / 1024 / 1024).toFixed(2);
-
-
         fileInfo.innerHTML = `
         📄 <b>${file.name}</b><br>
-        📦 ${size} MB
+        📦 ${(file.size / 1024).toFixed(1)} KB
         `;
 
     }
@@ -160,66 +45,33 @@ fileInput.addEventListener("change", () => {
 
 
 
-const uploadButton = document.querySelector(".uploadBtn");
 
 
-uploadButton.onclick = () => {
-
-
-    if(!fileInput.files[0]){
-
-        uploadMessage.innerHTML =
-        "❌ Select a file first";
-
-        return;
-
-    }
-
-
-    let progress = 0;
-
-
-    let timer = setInterval(()=>{
-
-
-        progress += 10;
-
-
-        progressBar.style.width =
-        progress + "%";
-
-
-        if(progress >= 100){
-
-
-            clearInterval(timer);
-
-
-            uploadMessage.innerHTML =
-            "✅ File uploaded successfully!";
-
-
-        }
-
-
-    },200);
-
-
-};
+// 📤 Upload To Feed
 
 const uploadBtn = document.getElementById("uploadBtn");
-const fileInput = document.getElementById("fileInput");
 const feed = document.querySelector(".feed");
+const captionInput = document.querySelector(".caption");
 
 
 uploadBtn.onclick = () => {
 
+
     const file = fileInput.files[0];
 
+
     if(!file){
+
         alert("Please select a file first!");
+
         return;
+
     }
+
+
+
+    const caption = captionInput.value || "No description";
+
 
 
     const card = document.createElement("div");
@@ -227,25 +79,37 @@ uploadBtn.onclick = () => {
     card.className = "fileCard";
 
 
+
     card.innerHTML = `
 
+
     <div class="user">
+
 
         <div class="avatar">
         U
         </div>
 
+
+
         <div>
+
             <h3>
             You
             </h3>
 
+
             <p>
             Just now
             </p>
+
+
         </div>
 
+
     </div>
+
+
 
 
     <h2>
@@ -253,46 +117,119 @@ uploadBtn.onclick = () => {
     </h2>
 
 
+
     <p>
-    Uploaded file
+    ${caption}
     </p>
 
 
+
+
+
     <div class="details">
+
 
         <span>
         📁 File
         </span>
 
+
+
         <span>
         ${(file.size / 1024).toFixed(1)} KB
         </span>
 
+
+
     </div>
 
 
+
+
+
     <div class="actions">
+
 
         <button>
         ⬇ Download
         </button>
 
+
+
         <button>
         ❤️ 0
         </button>
+
+
 
         <button>
         💬 0
         </button>
 
+
+
     </div>
 
+
+
     `;
+
 
 
     feed.appendChild(card);
 
 
+
+    // Clear inputs
+
     fileInput.value = "";
 
+    captionInput.value = "";
+
+    fileInfo.innerHTML = "";
+
 };
+
+
+
+
+
+
+// ⏳ Loading Screen
+
+window.addEventListener("load", () => {
+
+    const loader = document.getElementById("loader");
+
+    if(loader){
+
+        loader.style.display = "none";
+
+    }
+
+});
+
+
+
+
+
+
+// 📱 PWA Service Worker
+
+if("serviceWorker" in navigator){
+
+    navigator.serviceWorker.register("service-worker.js")
+
+    .then(() => {
+
+        console.log("PWA Ready ✅");
+
+    })
+
+    .catch(error => {
+
+        console.log("PWA Error:", error);
+
+    });
+
+}
